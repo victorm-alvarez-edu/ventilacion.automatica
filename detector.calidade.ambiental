@@ -1,0 +1,131 @@
+// Proba de concepto para establecer un detector de calidade
+// ambiental usando o sensor MQ-135
+
+// Convén recalibralo para unha situación de uso normal
+// NON mide só CO2 e ademais o valor medio está moi por
+// debaixo das 390 ppm. Que mide? Como se calibra para CO2?
+
+
+#define MQ A0
+#define RL 5
+#define R0 10
+
+#define espera 2000
+
+// Saidas
+#define VERDE 12
+#define AMARELO 11
+#define VERMELLO 10
+#define BUZZER 9
+#define RELAY 7
+
+// Mostreo
+#define intervalo 100
+#define nMostras 5
+
+// Valores medio e máximo nas probas (ppm)
+float vMin = 210.0;
+float vMedio = 224.0;
+float vMax = 590.0;
+
+// Umbrais de encencido dos LEDs
+bool normal = false;
+bool cargado = false;
+bool excesivo = false;
+int contador = 0; // Contador de ciclos con exceso de CO2
+
+// Datos calibrado (datasheet)
+const float x0 = 10;
+const float y0 = 2.1;
+const float x1 = 200;
+const float y1 = 0.8;
+
+// Calculo dos puntos da curva
+const float p0[] = {log10(x0), log10(y0)};
+const float p1[] = {log10(x1), log10(y1)};
+
+// Calculo pendente e ordenada nas abscisas (A e B)
+const float pendente = (p1[1] - p0[1]) / (p1[0] - p0[0]);
+const float coord = p0[1] - p0[0] * pendente;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(VERDE, OUTPUT);
+  pinMode(AMARELO, OUTPUT);
+  pinMode(VERMELLO, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(RELAY, OUTPUT);
+}
+
+void loop() {
+  float rs_med = getRSpromedio();
+  float concentracion = getConcentracion(rs_med/R0);
+
+  String mensaxe = "Concentración:\t" + String(concentracion);
+  mensaxe += " ppm\n";
+  Serial.print(mensaxe);
+
+  normal = concentracion < (vMedio * 1.2);
+  cargado = (concentracion >= (vMedio * 1.2)) && (concentracion < (vMedio * 1.7));
+  excesivo = concentracion >= (vMedio * 1.9);
+ // Serial.println(normal); Serial.println(cargado); Serial.println(excesivo); 
+
+  // Valoración de calidade do aire
+  if(normal) { // LED verde aceso. Outros LEDs, buzzer e relay apagados.
+    // LED verde aceso
+    digitalWrite(VERDE, HIGH);
+    digitalWrite(AMARELO, LOW);
+    digitalWrite(VERMELLO, LOW);
+    digitalWrite(RELAY, LOW); // Desconecta ventilación se estaba acesa
+    noTone(BUZZER); // Desconecta buzzer se estaba aceso.
+    contador = 0;
+  }
+  else if(cargado) { // LED amarelo aceso. Outros LEDs, buzzer e relay apagados.
+    // LED amarelo aceso
+    digitalWrite(VERDE, LOW);
+    digitalWrite(AMARELO, HIGH);
+    digitalWrite(VERMELLO, LOW);
+    if(contador > 5) {  // Se bota demasiado tempo (N ciclos) encende o buzzer
+      // O buzzer faise máis agudo conforme pasa o tempo e a lectura non 
+      // baixa de 'ambiente cargado'.
+      tone(BUZZER, contador * 200);
+    }
+    contador += 1; // Contador de ciclos en que o ambiente está cargado
+  }
+  else if(excesivo) { // LED vermello aceso. Resto apagados.
+    // LED vermello aceso
+    digitalWrite(VERDE, LOW);
+    digitalWrite(AMARELO, LOW);
+    digitalWrite(VERMELLO, HIGH);
+    if(contador > 3) { // Se leva moito tempo o ambiente cargado...
+      digitalWrite(RELAY, HIGH); // ... encende a ventilación.
+    }
+  }
+  
+  delay(espera);
+}
+
+// Obter a resistencia promedio para N mostras
+float getRSpromedio() {
+  float rs = 0;
+  int i=0;
+  while(i<nMostras) {
+    rs += getRS();
+    delay(intervalo);
+    i++;
+  }
+  return(rs/nMostras);
+}
+
+// Obter a resistencia a partir dunha lectura analóxica
+float getRS() {
+  int lecturaMQ = analogRead(MQ);
+  return(RL/1000.0 * (1023 - lecturaMQ)/lecturaMQ);
+}
+
+// Calcular a concentración: 10^(coord + pendente*log(rs/r0)
+// ratio é rs_med/r0
+float getConcentracion(float ratio) {
+  return(pow(10, coord + pendente*log(ratio)));
+}
+
