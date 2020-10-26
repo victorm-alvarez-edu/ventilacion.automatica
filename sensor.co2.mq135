@@ -1,0 +1,20 @@
+// Proba do sensor de calidade ambiental MQ-135
+
+#define MQ A0
+#define espera 2000
+
+
+void setup() {
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  int lectura = analogRead(MQ);
+  float valorAnaloxico = lectura * 5.0 / 1023.0;
+
+  String mensaxe = "Lectura: " + String(lectura);
+  mensaxe += "\t Tensión: " + String(valorAnaloxico) + " V\n";
+  Serial.print(mensaxe);
+  delay(espera);
+}
