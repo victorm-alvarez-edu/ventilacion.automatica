@@ -10,7 +10,7 @@
 #define RL 5
 #define R0 10
 
-#define espera 2000
+#define espera 30000
 
 // Saidas
 #define VERDE 12
@@ -34,9 +34,16 @@ bool cargado = false;
 bool excesivo = false;
 int contador = 0; // Contador de ciclos con exceso de CO2
 
+// Niveis CO2 ppm
+int marxeErro = 1.2;
+int extMin = 350 * marxeErro; int extMax = 450 * marxeErro;
+int aceptableMin = 600 * marxeErro; int aceptableMax = 800 * marxeErro;
+int tolerable = 1000 * marxeErro;
+
+
 // Datos calibrado (datasheet)
 const float x0 = 10;
-const float y0 = 2.1;
+const float y0 = 2.3;
 const float x1 = 200;
 const float y1 = 0.8;
 
@@ -65,10 +72,11 @@ void loop() {
   mensaxe += " ppm\n";
   Serial.print(mensaxe);
 
-  normal = concentracion < (vMedio * 1.2);
-  cargado = (concentracion >= (vMedio * 1.2)) && (concentracion < (vMedio * 1.7));
-  excesivo = concentracion >= (vMedio * 1.9);
+  normal = concentracion < extMax;
+  cargado = (concentracion >= extMax) && (concentracion < aceptableMax);
+  excesivo = concentracion >= tolerable;
  // Serial.println(normal); Serial.println(cargado); Serial.println(excesivo); 
+ // Serial.print(pendente); Serial.print("\t"); Serial.println(coord);
 
   // Valoración de calidade do aire
   if(normal) { // LED verde aceso. Outros LEDs, buzzer e relay apagados.
@@ -85,7 +93,7 @@ void loop() {
     digitalWrite(VERDE, LOW);
     digitalWrite(AMARELO, HIGH);
     digitalWrite(VERMELLO, LOW);
-    if(contador > 5) {  // Se bota demasiado tempo (N ciclos) encende o buzzer
+    if(contador > 15) {  // Se bota demasiado tempo (N ciclos) encende o buzzer
       // O buzzer faise máis agudo conforme pasa o tempo e a lectura non 
       // baixa de 'ambiente cargado'.
       tone(BUZZER, contador * 200);
@@ -97,7 +105,7 @@ void loop() {
     digitalWrite(VERDE, LOW);
     digitalWrite(AMARELO, LOW);
     digitalWrite(VERMELLO, HIGH);
-    if(contador > 3) { // Se leva moito tempo o ambiente cargado...
+    if(contador > 5) { // Se leva moito tempo o ambiente cargado...
       digitalWrite(RELAY, HIGH); // ... encende a ventilación.
     }
   }
@@ -128,4 +136,3 @@ float getRS() {
 float getConcentracion(float ratio) {
   return(pow(10, coord + pendente*log(ratio)));
 }
-
