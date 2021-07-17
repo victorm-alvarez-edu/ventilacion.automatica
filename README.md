@@ -1,4 +1,4 @@
-### Control de ventilación automática
+## Control de ventilación automática
 
 Debido á situación excepcional vivida nos centros por causa da COVID-19 e ante a ausencia inicial dun protocolo de ventilación das aulas, xurdíu a necesidade de medir parámetros de calidade do aire no interior das aulas e talleres. Como non é posible ter unha medida instantánea da carga vírica nun entorno pechado, en todas as guías e manuais técnicos consultados óptase por correlacionar a calidade do aire en relación coa COVID-19, coa concentración de dióxido de carbono (CO2). Desta maneira, podemos aplicar a [normativa do RITE](https://www.idae.es/uploads/documentos/documentos_17_Guia_tecnica_instalaciones_de_climatizacion_con_equipos_autonomos_5bd3407b.pdf) para cualificar o aire interior como óptimo, aceptable ou tolerable.
 
@@ -28,10 +28,12 @@ Pódese consultar nos scripts disponíbeis os umbrais e modo de operación do me
 2.  promedio das N medicións e cálculo da concentración a partir dos parámetros da curva de calibración,
 3.  decide o estado de calidade do aire en función dos umbrais de concentración de CO2 mencionados nos parágrafos anteriores (óptimo até 450 ppm, aceptable até 800 ppm e tolerable até 1000 ppm, por encima deste valor o estado non é tolerable),
 4.  decide o estado das sinalizacións e actuadores:
-    * estado óptimo: lámpara verde acesa (outras apagadas), zumbador apagado e relay off,
-    * estado aceptable: lámpara amarela acesa (outras apagadas), zumbador apagado durante un tempo determinado por encima dun certo tempo neste estado (normalmente máis de 15 iteracións sucesivas neste estado), o zumbador actívase para avisar que é necesario facer ventilación manual e relay off,
-    * estado non tolerable: lámpara vermella acesa (outras apagadas), zumbador apagado e relay on para accionar a ventilación automática
+    * estado óptimo: (a) lámpara verde acesa (outras apagadas), (b) zumbador apagado e (c) relay OFF,
+    * estado aceptable: (a) lámpara amarela acesa (outras apagadas), (b) zumbador apagado durante un tempo determinado, por encima dun certo tempo neste estado (normalmente máis de 15 iteracións sucesivas sen mudar de estado), o zumbador actívase para avisar que é necesario facer ventilación manual e (c) relay OFF,
+    * estado non tolerable: (a) lámpara vermella acesa (outras apagadas), (b) zumbador apagado e (c) relay ON para accionar a ventilación automática
 5.  saca resultados e estado polo porto serie; a fin de facilitar o uso por parte do profesorado, non se inclúe pantalla LCD para visualizar datos numéricos do estado do aire na estancia.
+
+
 
 
 
