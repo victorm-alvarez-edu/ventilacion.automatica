@@ -37,8 +37,11 @@ Pódese consultar nos scripts disponíbeis os umbrais e modo de operación do me
 Móstranse a seguir fotografías do  sensor montado fora da caixa:
 
 ![Control CO2 e ventilacion Vista superior I](https://user-images.githubusercontent.com/26594148/126043420-52623dc4-30d6-472d-a4d3-b7b40d7c8a82.jpeg)
-***Monitor de CO2 vista superior***
+**Monitor de CO2 vista superior**
 ---
 
+![Control CO2 e ventilacion Vista lateral sensor e relay](https://user-images.githubusercontent.com/26594148/126043497-a89c455f-4e83-48ed-8c8b-a124c858787a.jpeg)
+**Monitor de CO2 vista lateral**
+---
 
 
