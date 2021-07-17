@@ -7,3 +7,7 @@ A concentración de CO2 mídese en partes por millón (ppm) e os valores estable
 * Aceptable para IAQ (indoor air quality): de 600 a 800 ppm
 * Tolerable para IAQ, até un máximo de 1000 ppm.
 
+Decidíuse realizar un medidor portátil que:
+1. monitorice permanentemente a concentración de CO2 dunha estancia, e
+2. (opcionalmente) encenda un ventilador para a renovación de aire ao superarse un umbral prefixado ou superarse un tempo máximo no umbral anterior.
+
