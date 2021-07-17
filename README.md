@@ -31,9 +31,14 @@ Pódese consultar nos scripts disponíbeis os umbrais e modo de operación do me
     * estado óptimo: (a) lámpara verde acesa (outras apagadas), (b) zumbador apagado e (c) relay OFF,
     * estado aceptable: (a) lámpara amarela acesa (outras apagadas), (b) zumbador apagado durante un tempo determinado, por encima dun certo tempo neste estado (normalmente máis de 15 iteracións sucesivas sen mudar de estado), o zumbador actívase para avisar que é necesario facer ventilación manual e (c) relay OFF,
     * estado non tolerable: (a) lámpara vermella acesa (outras apagadas), (b) zumbador apagado e (c) relay ON para accionar a ventilación automática
-5.  saca resultados e estado polo porto serie; a fin de facilitar o uso por parte do profesorado, non se inclúe pantalla LCD para visualizar datos numéricos do estado do aire na estancia.
+5.  saca resultados e estado polo porto serie; a fin de facilitar o uso por parte do profesorado, non se inclúe pantalla LCD para visualizar datos numéricos do estado do aire na estancia, unicamente sinalizacións visuais e sonoras.
 
 
+Móstranse a seguir fotografías do  sensor montado fora da caixa:
+
+![Control CO2 e ventilacion Vista superior I](https://user-images.githubusercontent.com/26594148/126043420-52623dc4-30d6-472d-a4d3-b7b40d7c8a82.jpeg)
+**Monitor de CO2 vista superior**
+---
 
 
 
