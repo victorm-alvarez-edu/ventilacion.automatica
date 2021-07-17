@@ -28,11 +28,10 @@ Pódese consultar nos scripts disponíbeis os umbrais e modo de operación do me
 2.  promedio das N medicións e cálculo da concentración a partir dos parámetros da curva de calibración,
 3.  decide o estado de calidade do aire en función dos umbrais de concentración de CO2 mencionados nos parágrafos anteriores (óptimo até 450 ppm, aceptable até 800 ppm e tolerable até 1000 ppm, por encima deste valor o estado non é tolerable),
 4.  decide o estado das sinalizacións e actuadores:
-   * estado óptimo: lámpara verde acesa (outras apagadas), zumbador apagado e relay off,
-   * estado aceptable: lámpara amarela acesa (outras apagadas), zumbador apagado durante un tempo determinado por encima dun certo tempo neste estado (normalmente máis de 15 iteracións sucesivas neste estado), o zumbador actívase para avisar que é necesario facer ventilación manual e relay off,
-   * estado non tolerable: lámpara vermella acesa (outras apagadas), zumbador apagado e relay on para accionar a ventilación automática
-6.  saca resultados e estado polo porto serie; a fin de facilitar o uso por parte do profesorado, non se inclúe pantalla LCD para visualizar datos numéricos do estado do aire na estancia.
+    * estado óptimo: lámpara verde acesa (outras apagadas), zumbador apagado e relay off,
+    * estado aceptable: lámpara amarela acesa (outras apagadas), zumbador apagado durante un tempo determinado por encima dun certo tempo neste estado (normalmente máis de 15 iteracións sucesivas neste estado), o zumbador actívase para avisar que é necesario facer ventilación manual e relay off,
+    * estado non tolerable: lámpara vermella acesa (outras apagadas), zumbador apagado e relay on para accionar a ventilación automática
+5.  saca resultados e estado polo porto serie; a fin de facilitar o uso por parte do profesorado, non se inclúe pantalla LCD para visualizar datos numéricos do estado do aire na estancia.
 
 
 
-8.  
